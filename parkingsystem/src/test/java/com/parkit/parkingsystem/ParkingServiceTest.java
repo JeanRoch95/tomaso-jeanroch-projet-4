@@ -57,9 +57,12 @@ public class ParkingServiceTest {
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
         when(ticketDAO.getNbTicket(anyString())).thenReturn(0);
 
-        //THEN
         parkingService.processExitingVehicle();
-        verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
+
+
+        //THEN
+        verify(parkingSpotDAO, times(1)).updateParking(any(ParkingSpot.class));
+        verify(ticketDAO, times(1)).getTicket("ABCDEF");
         verify(ticketDAO, times(1)).getNbTicket("ABCDEF");
     }
 
@@ -73,6 +76,7 @@ public class ParkingServiceTest {
         when(ticketDAO.getNbTicket(anyString())).thenReturn(0);
         when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
         when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+        
         parkingService.processIncomingVehicle();
 
         //THEN
@@ -93,9 +97,8 @@ public class ParkingServiceTest {
         //WHEN
         when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
+
         parkingService.processExitingVehicle();
-
-
 
         //THEN
         assertEquals(0, parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class)));
@@ -118,8 +121,7 @@ public class ParkingServiceTest {
         //THEN
         verify(parkingSpotDAO, times(1)).getNextAvailableSlot(any(ParkingType.class));
         assertEquals(1, parkingSpot.getId());
-        assertEquals(true, parkingSpot.isAvailable());
-        
+        assertTrue(parkingSpot.isAvailable());
     }
 
     @Test
@@ -152,5 +154,4 @@ public class ParkingServiceTest {
         verify(parkingSpotDAO, times(0)).getNextAvailableSlot(any(ParkingType.class));
         assertNull(parkingSpot);
     }
-
 }
