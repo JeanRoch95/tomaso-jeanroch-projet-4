@@ -1,13 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.parkit.parkingsystem.ParkingServiceTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.174 s <<< FAILURE! - in com.parkit.parkingsystem.ParkingServiceTest
-testGetNextParkingNumberIfAvailableParkingNumberWrongArgument  Time elapsed: 0.041 s  <<< ERROR!
-org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
-
-Unnecessary stubbings detected.
-Clean & maintainable test code requires zero unnecessary code.
-Following stubbings are unnecessary (click to navigate to relevant line of code):
-  1. -> at com.parkit.parkingsystem.ParkingServiceTest.setUp(ParkingServiceTest.java:36)
-Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
-
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s - in com.parkit.parkingsystem.ParkingServiceTest
