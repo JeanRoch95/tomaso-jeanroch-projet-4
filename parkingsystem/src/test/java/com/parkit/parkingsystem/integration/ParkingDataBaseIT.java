@@ -17,6 +17,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -60,6 +61,7 @@ public class ParkingDataBaseIT {
     }
 
     @Test
+    @DisplayName("check that a ticket is actualy saved in DB and Parking table is updated with availability")
     public void testParkingACar()throws Exception {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
@@ -69,11 +71,10 @@ public class ParkingDataBaseIT {
         assertEquals(ticket.getId(), 1);
         assertFalse(ticket.getParkingSpot().isAvailable());
         assertEquals(parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR), 2);
-
-        //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
     }
 
     @Test
+    @DisplayName("check that the fare generated and out time are populated correctly in the database")
     public void testParkingLotExit()throws Exception {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
@@ -92,10 +93,10 @@ public class ParkingDataBaseIT {
         assertEquals(1, ticketDAO.getNbTicket(inputReaderUtil.readVehicleRegistrationNumber()));
         assertNotNull(ticket.getOutTime());
         assertEquals(Fare.CAR_RATE_PER_HOUR, ticket.getPrice());
-        //TODO: check that the fare generated and out time are populated correctly in the database
     }
 
     @Test
+    @DisplayName("Check if ticket are correctly storage in the database for the recurrent users")
     public void testParkingLotExitRecurringUser()throws Exception{
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
@@ -115,7 +116,6 @@ public class ParkingDataBaseIT {
 
         assertEquals(2, ticketDAO.getNbTicket(inputReaderUtil.readVehicleRegistrationNumber()));
         assertEquals(Fare.CAR_RATE_PER_HOUR * Fare.DISCOUNT_RATE, ticket.getPrice());
-
     }
 
 }
